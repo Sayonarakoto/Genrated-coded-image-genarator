@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebrith - Real-Time Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="ui-overlay">
+            <div class="panel player-panel">
+                <div class="class-name">Player - Spellsword</div>
+                <div class="hp-bar-container">
+                    <div id="player-hp-bar" class="hp-bar"></div>
+                </div>
+                <div class="energy-container">
+                    Energy: <span id="player-energy">5</span>
+                </div>
+            </div>
+
+            <div class="panel bot-panel">
+                <div class="class-name">Bot - Mage</div>
+                <div class="hp-bar-container">
+                    <div id="bot-hp-bar" class="hp-bar"></div>
+                </div>
+                <div class="energy-container">
+                    Energy: <span id="bot-energy">5</span>
+                </div>
+            </div>
+            <div id="game-message">BATTLE START</div>
+        </div>
+    </div>
+
+    <div id="controls-overlay">
+        <h4>Keyboard Controls</h4>
+        <p>Movement: <strong>A</strong> (Left), <strong>D</strong> (Right)</p>
+        <p>Actions: <strong>Q</strong> (Attack), <strong>W</strong> (Block), <strong>E</strong> (Skill), <strong>R</strong> (Charge)</p>
+    </div>
+
+    <div id="mobile-controls">
+        <div id="mobile-movement">
+            <button id="move-left" ontouchstart="setMobileInput('left', true)" ontouchend="setMobileInput('left', false)">&#9664; A</button>
+            <button id="move-right" ontouchstart="setMobileInput('right', true)" ontouchend="setMobileInput('right', false)">D &#9654;</button>
+        </div>
+        
+        <div id="mobile-actions">
+            <button id="action-q" ontouchstart="setMobileInput('actionA', true)" ontouchend="setMobileInput('actionA', false)">Q</button>
+            <button id="action-w" ontouchstart="setMobileInput('actionB', true)" ontouchend="setMobileInput('actionB', false)">W</button>
+            <button id="action-e" ontouchstart="setMobileInput('actionS', true)" ontouchend="setMobileInput('actionS', false)">E</button>
+            <button id="action-r" ontouchstart="setMobileInput('actionP', true)" ontouchend="setMobileInput('actionP', false)">R</button>
+        </div>
+    </div>
+
+    <script src="js/components/input-handler.js"></script>
+    <script src="js/components/ui-updater.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

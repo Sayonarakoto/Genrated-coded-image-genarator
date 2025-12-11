@@ -1,0 +1,163 @@
+/* --- General Body & Font --- */
+body {
+    margin: 0;
+    font-family: 'Press Start 2P', cursive; /* Pixel font */
+    background-color: #1a1a1a;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 20px;
+}
+
+/* --- Game & Canvas Containers --- */
+#game-container {
+    position: relative;
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff inset;
+}
+
+#game-canvas {
+    width: 960px;
+    height: 540px;
+    display: block;
+}
+
+/* --- UI Overlay & Panels (Premium UI) --- */
+#ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.panel {
+    position: absolute;
+    background-color: rgba(20, 20, 40, 0.85);
+    padding: 10px;
+    width: 220px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    /* Pixelated border effect */
+    box-shadow: 
+        0 2px 0 #000, 2px 0 0 #000, 
+        -2px 0 0 #000, 0 -2px 0 #000;
+}
+
+.player-panel {
+    top: 15px;
+    left: 15px;
+    border: 2px solid #00aaff;
+}
+
+.bot-panel {
+    top: 15px;
+    right: 15px;
+    border: 2px solid #ff0055;
+}
+
+.class-name {
+    font-size: 1em;
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+}
+.player-panel .class-name { color: #00aaff; }
+.bot-panel .class-name { color: #ff0055; }
+
+
+.hp-bar-container {
+    background-color: #111;
+    border: 1px solid #000;
+    padding: 2px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 0 #444 inset;
+}
+
+.hp-bar {
+    height: 14px;
+    width: 100%;
+    background-color: #00ff00;
+    transition: width 0.3s ease-out;
+    box-shadow: 0 0 5px #0f0;
+}
+
+.energy-container {
+    font-size: 0.9em;
+    color: #00ffff;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* --- Game Message (Fade Out) --- */
+#game-message {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ffdd00;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.5s ease-out;
+}
+#game-message.visible {
+    opacity: 1;
+}
+
+/* --- Controls Overlays --- */
+#controls-overlay {
+    background-color: #2a2a2a;
+    padding: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    text-align: center;
+}
+#controls-overlay h4 { margin: 0 0 10px 0; color: #00ffff; }
+#controls-overlay p { margin: 5px 0; font-size: 0.9em; }
+#controls-overlay strong { color: #ffc107; }
+
+/* --- Mobile Controls --- */
+#mobile-controls {
+    display: none; /* Hidden by default, shown in media query */
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+#mobile-movement button, #mobile-actions button {
+    padding: 15px 20px;
+    font-size: 18px;
+    margin: 5px;
+    border: 2px solid white;
+    background: #333;
+    color: white;
+    border-radius: 8px;
+    opacity: 0.8;
+    min-width: 60px;
+}
+
+#mobile-actions {
+    display: flex;
+}
+
+/* --- Media Query for Mobile --- */
+@media (max-width: 768px) {
+    #controls-overlay {
+        display: none; /* Hide keyboard hints */
+    }
+    #mobile-controls {
+        display: flex; /* Show mobile buttons */
+    }
+}
