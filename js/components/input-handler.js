@@ -1,44 +1,39 @@
-// --- Global Input State ---
-const inputState = {
-    left: false,
-    right: false,
-    actionA: false, // Q
-    actionB: false, // W
-    actionS: false, // E
-    actionP: false  // R
+// Global Input State
+window.inputState = {
+    left: false,   // A
+    right: false,  // D
+    up: false,     // W (Jump/Fly)
+    down: false,   // S (Block)
+    actionQ: false, // Attack
+    actionE: false, // Skill
+    actionR: false  // Charge
 };
 
-// --- Keyboard Input Handling ---
-function handleKeyDown(event) {
-    switch (event.key.toLowerCase()) {
-        case 'a': inputState.left = true; break;
-        case 'd': inputState.right = true; break;
-        case 'q': inputState.actionA = true; break;
-        case 'w': inputState.actionB = true; break;
-        case 'e': inputState.actionS = true; break;
-        case 'r': inputState.actionP = true; break;
+// Helper for mobile controls (optional if using inline JS)
+window.setMobileInput = function(key, value) {
+    if (window.inputState.hasOwnProperty(key)) {
+        window.inputState[key] = value;
     }
-}
+};
 
-function handleKeyUp(event) {
-    switch (event.key.toLowerCase()) {
-        case 'a': inputState.left = false; break;
-        case 'd': inputState.right = false; break;
-        case 'q': inputState.actionA = false; break;
-        case 'w': inputState.actionB = false; break;
-        case 'e': inputState.actionS = false; break;
-        case 'r': inputState.actionP = false; break;
-    }
-}
+document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if (key === 'a') inputState.left = true;
+    if (key === 'd') inputState.right = true;
+    if (key === 'w') inputState.up = true;
+    if (key === 's') inputState.down = true;
+    if (key === 'q') inputState.actionQ = true;
+    if (key === 'e') inputState.actionE = true;
+    if (key === 'r') inputState.actionR = true;
+});
 
-// --- Mobile Touch Input Handling ---
-/**
- * Sets the global inputState variable based on touch events.
- * @param {string} keyName - The input state key ('left', 'right', 'actionA', etc.)
- * @param {boolean} isPressed - true for touchstart, false for touchend.
- */
-function setMobileInput(keyName, isPressed) {
-    if (inputState.hasOwnProperty(keyName)) {
-        inputState[keyName] = isPressed;
-    }
-}
+document.addEventListener('keyup', (e) => {
+    const key = e.key.toLowerCase();
+    if (key === 'a') inputState.left = false;
+    if (key === 'd') inputState.right = false;
+    if (key === 'w') inputState.up = false;
+    if (key === 's') inputState.down = false;
+    if (key === 'q') inputState.actionQ = false;
+    if (key === 'e') inputState.actionE = false;
+    if (key === 'r') inputState.actionR = false;
+});

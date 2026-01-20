@@ -5,11 +5,7 @@
  * @returns {boolean} True if the boxes overlap.
  */
 function checkCollision(boxA, boxB) {
-    // Safety check to ensure both boxes are valid objects before checking.
-    if (!boxA || !boxB) {
-        return false;
-    }
-    
+    if (!boxA || !boxB) return false; // Guard against null or undefined boxes
     return (
         boxA.x < boxB.x + boxB.w &&
         boxA.x + boxA.w > boxB.x &&

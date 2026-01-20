@@ -5,51 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rebrith - Real-Time Battle</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css/css/nes.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+      body, button {
+        font-family: 'Press Start 2P', cursive;
+      }
+    </style>
 </head>
 <body>
     <div id="game-container">
         <canvas id="game-canvas"></canvas>
         <div id="ui-overlay">
-            <div class="panel player-panel">
-                <div class="class-name">Player - Spellsword</div>
-                <div class="hp-bar-container">
-                    <div id="player-hp-bar" class="hp-bar"></div>
+            <div class="panel player-panel nes-container is-rounded is-dark">
+                <div class="char-label">KNIGHT</div>
+                <div class="hp-bar-wrapper nes-container is-rounded is-dark">
+                    <div id="player-hp-ghost" class="hp-fill ghost"></div>
+                    <div id="player-hp-fill" class="hp-fill main"></div>
                 </div>
-                <div class="energy-container">
-                    Energy: <span id="player-energy">5</span>
-                </div>
+                <span>Energy</span>
+                <progress class="nes-progress is-primary" value="5" max="10" id="player-energy-bar"></progress>
+                <span>Stamina</span>
+                <progress class="nes-progress is-warning" value="100" max="100" id="player-stamina-bar"></progress>
             </div>
 
-            <div class="panel bot-panel">
-                <div class="class-name">Bot - Mage</div>
-                <div class="hp-bar-container">
-                    <div id="bot-hp-bar" class="hp-bar"></div>
+            <div class="panel bot-panel nes-container is-rounded is-dark">
+                <div class="char-label">ASSASSIN</div>
+                <div class="hp-bar-wrapper nes-container is-rounded is-dark">
+                    <div id="bot-hp-ghost" class="hp-fill ghost"></div>
+                    <div id="bot-hp-fill" class="hp-fill main"></div>
                 </div>
-                <div class="energy-container">
-                    Energy: <span id="bot-energy">5</span>
-                </div>
+                <span>Energy</span>
+                <progress class="nes-progress is-warning" value="5" max="10" id="bot-energy-bar"></progress>
+                <span>Stamina</span>
+                <progress class="nes-progress is-warning" value="100" max="100" id="bot-stamina-bar"></progress>
             </div>
             <div id="game-message">BATTLE START</div>
         </div>
     </div>
 
-    <div id="controls-overlay">
+    <div id="controls-overlay" class="nes-container is-dark is-rounded">
         <h4>Keyboard Controls</h4>
         <p>Movement: <strong>A</strong> (Left), <strong>D</strong> (Right)</p>
         <p>Actions: <strong>Q</strong> (Attack), <strong>W</strong> (Block), <strong>E</strong> (Skill), <strong>R</strong> (Charge)</p>
     </div>
 
     <div id="mobile-controls">
-        <div id="mobile-movement">
-            <button id="move-left" ontouchstart="setMobileInput('left', true)" ontouchend="setMobileInput('left', false)">&#9664; A</button>
-            <button id="move-right" ontouchstart="setMobileInput('right', true)" ontouchend="setMobileInput('right', false)">D &#9654;</button>
+        <div class="control-group d-pad">
+            <button class="nes-btn" onpointerdown="inputState.up = true" onpointerup="inputState.up = false">W</button>
+            <div class="d-pad-horizontal">
+                <button class="nes-btn" onpointerdown="inputState.left = true" onpointerup="inputState.left = false">A</button>
+                <button class="nes-btn" onpointerdown="inputState.right = true" onpointerup="inputState.right = false">D</button>
+            </div>
+            <button class="nes-btn is-warning" onpointerdown="inputState.down = true" onpointerup="inputState.down = false">S</button>
         </div>
-        
-        <div id="mobile-actions">
-            <button id="action-q" ontouchstart="setMobileInput('actionA', true)" ontouchend="setMobileInput('actionA', false)">Q</button>
-            <button id="action-w" ontouchstart="setMobileInput('actionB', true)" ontouchend="setMobileInput('actionB', false)">W</button>
-            <button id="action-e" ontouchstart="setMobileInput('actionS', true)" ontouchend="setMobileInput('actionS', false)">E</button>
-            <button id="action-r" ontouchstart="setMobileInput('actionP', true)" ontouchend="setMobileInput('actionP', false)">R</button>
+    
+        <div class="control-group action-cluster">
+            <button class="nes-btn is-error" onpointerdown="inputState.actionQ = true" onpointerup="inputState.actionQ = false">Q</button>
+            <div class="action-row">
+                <button class="nes-btn is-primary" onpointerdown="inputState.actionE = true" onpointerup="inputState.actionE = false">E</button>
+                <button class="nes-btn is-success" onpointerdown="inputState.actionR = true" onpointerup="inputState.actionR = false">R</button>
+            </div>
         </div>
     </div>
 

@@ -1,8 +1,12 @@
 // --- DOM Elements ---
-const playerHPBar = document.getElementById('player-hp-bar');
-const playerEnergyText = document.getElementById('player-energy');
-const botHPBar = document.getElementById('bot-hp-bar');
-const botEnergyText = document.getElementById('bot-energy');
+const playerHPBar = document.getElementById('player-hp-fill');
+const playerGhostHPBar = document.getElementById('player-hp-ghost');
+const playerEnergyBar = document.getElementById('player-energy-bar');
+const playerStaminaBar = document.getElementById('player-stamina-bar');
+const botHPBar = document.getElementById('bot-hp-fill');
+const botGhostHPBar = document.getElementById('bot-hp-ghost');
+const botEnergyBar = document.getElementById('bot-energy-bar');
+const botStaminaBar = document.getElementById('bot-stamina-bar');
 const gameMessage = document.getElementById('game-message');
 
 // --- UI Update Functions ---
@@ -13,14 +17,30 @@ const gameMessage = document.getElementById('game-message');
  */
 function updateUI(gameState) {
     // Player UI
-    const playerHPPercent = (gameState.player.hp / 100) * 100;
-    playerHPBar.style.width = `${playerHPPercent}%`;
-    playerEnergyText.textContent = gameState.player.energy;
+    const playerPct = (gameState.player.hp / gameState.player.maxHp) * 100;
+    playerHPBar.style.width = `${playerPct}%`;
+    playerGhostHPBar.style.width = `${playerPct}%`; // CSS transition handles the delay
+    
+    if (gameState.player.gotHit && window.gsap) {
+        gsap.to('.player-panel', { x: 5, yoyo: true, repeat: 5, duration: 0.05 });
+        gameState.player.gotHit = false;
+    }
+
+    playerEnergyBar.value = Math.floor(gameState.player.energy);
+    playerStaminaBar.value = Math.floor(gameState.player.stamina);
 
     // Bot UI
-    const botHPPercent = (gameState.bot.hp / 100) * 100;
-    botHPBar.style.width = `${botHPPercent}%`;
-    botEnergyText.textContent = gameState.bot.energy;
+    const botPct = (gameState.bot.hp / gameState.bot.maxHp) * 100;
+    botHPBar.style.width = `${botPct}%`;
+    botGhostHPBar.style.width = `${botPct}%`; // CSS transition handles the delay
+    
+    if (gameState.bot.gotHit && window.gsap) {
+        gsap.to('.bot-panel', { x: 5, yoyo: true, repeat: 5, duration: 0.05 });
+        gameState.bot.gotHit = false;
+    }
+
+    botEnergyBar.value = Math.floor(gameState.bot.energy);
+    botStaminaBar.value = Math.floor(gameState.bot.stamina);
 }
 
 /**
